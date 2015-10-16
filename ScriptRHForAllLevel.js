@@ -3,34 +3,10 @@ Script passage of the maze for RoboHub.
 http://zhesha.github.io/robohub/
 */
 
-// level 1
-north(); north();
-
-//level 2
-while(isFree('east')){east();}
-
-//level 3
-while(isFree('south')){south(); east();}
-
-//level 4
-while (isFree('east')){
-east();
-if(!isFree('east')){
-	while(isFree('south')){south();}
-	}
-}
-
-//level 5
-for(var i = 1; i<=3; i++){
-	while(isFree('west')){west()};
-	if (i!=2){while(isFree('south')){south()};}
-	else {while(isFree('north')){north()};}
-}
-while(isFree('east')){east()};
-
-//level 6 and 7
+// For all levels
 var prevStep = '';
-for(var i = 1; i<=12; i++){
+var countStep = 0;
+for(var i = 1; i<=28; i++){ // Loop "for" because I don't know how to verify that the game is over
 	var step = 0;
 	if (prevStep != 'west'){	
 		while(isFree('east')){east(); prevStep = 'east'; step++;}}
@@ -41,7 +17,11 @@ for(var i = 1; i<=12; i++){
 	if (prevStep != 'north'){
 		while(isFree('south')){south(); prevStep = 'south'; step++;}}
 	if (!step){north()} //crutch for trap in level 6
+	countStep += step; 
 }
 
 // last step that the system is not breakdown
+countStep++;
 east();
+
+console.log("Count of steps at all levels is " + countStep);
